@@ -28,7 +28,10 @@ module HTTParty
       stack = []
 
       if value.is_a?(Array)
-        param << value.map { |element| normalize_param("#{key}[]", element) }.join
+      #param << value.map { |element| normalize_param("#{key}[]", element) }.join
+      ###Removed the above and replacing with the below###
+      #To change how hashes within arrays are handled, for the mandrill API
+param << value.each_with_index.map { |element, i| normalize_param("#{key}[#{i}]", element) }.join      ###End of change###
       elsif value.is_a?(Hash)
         stack << [key,value]
       else
